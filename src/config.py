@@ -1,5 +1,5 @@
 """
-configuration management for microvision experiments.
+configuration management.
 """
 from dataclasses import dataclass
 from typing import Optional
@@ -7,7 +7,7 @@ import torch
 
 @dataclass
 class Config:
-    """Configuration class for microvision experiments."""
+    """configuration class."""
     # Data parameters
     batch_size: int = 128
     num_workers: int = 4
@@ -35,7 +35,7 @@ class Config:
     use_augmentation: bool = True
     
     def __post_init__(self):
-        """Validate configuration after initialization."""
+        """validate configuration."""
         if self.batch_size <= 0:
             raise ValueError("batch_size must be positive")
         if self.lr <= 0:

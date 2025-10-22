@@ -4,7 +4,7 @@
 
 microvision is a minimal deep learning research lab designed for small-scale vision tasks. built with pytorch, numpy, and managed with uv, it provides a clean, modular framework for computer vision experiments.
 
-## 📊 System Architecture
+## system architecture
 
 ### High-Level Architecture
 ```mermaid
@@ -46,7 +46,7 @@ graph TD
     F --> E
 ```
 
-## 🧩 Core Components
+## core components
 
 ### 1. Configuration System (`config.py`)
 ```mermaid
@@ -154,7 +154,7 @@ stateDiagram-v2
     }
 ```
 
-## 🔄 Training Workflow
+## training workflow
 
 ### Complete Training Pipeline
 ```mermaid
@@ -201,7 +201,7 @@ flowchart LR
     J --> D
 ```
 
-## 📈 Experiment Tracking
+## experiment tracking
 
 ### Metrics and Logging
 ```mermaid
@@ -220,7 +220,7 @@ graph TB
     F --> M[Result Analysis]
 ```
 
-## 🎯 Model Performance Analysis
+## model performance analysis
 
 ### Training Curves
 ```mermaid
@@ -242,7 +242,7 @@ xychart-beta
     line "Validation Loss" [2.6, 1.9, 1.4, 1.0, 0.7, 0.5, 0.4]
 ```
 
-## 🔧 Development Workflow
+## development workflow
 
 ### Project Structure
 ```mermaid
@@ -296,7 +296,7 @@ gantt
     Experiments       :p5d, after p5c, 1d
 ```
 
-## 🚀 Usage Patterns
+## usage patterns
 
 ### Basic Usage Flow
 ```mermaid
@@ -320,7 +320,7 @@ flowchart TD
     E --> F[Result Documentation]
 ```
 
-## 🔍 Key Features
+## key features
 
 ### Modularity
 - **Config-driven**: All parameters centralized in `Config` class
@@ -340,7 +340,7 @@ flowchart TD
 - **Memory optimization**: Gradient checkpointing support
 - **Batch processing**: Optimized for small-scale datasets
 
-## 📊 Metrics and Evaluation
+## metrics and evaluation
 
 ### Training Metrics
 - **Loss**: Cross-entropy loss with regularization
@@ -354,7 +354,7 @@ flowchart TD
 - **Sample predictions**: Visual inspection of results
 - **Model architecture**: Network structure visualization
 
-## 🎯 Future Extensions
+## future extensions
 
 ### Planned Features
 ```mermaid

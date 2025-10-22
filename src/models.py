@@ -1,5 +1,5 @@
 """
-neural network models for microvision.
+neural network models.
 """
 import torch
 import torch.nn as nn
@@ -7,9 +7,7 @@ import torch.nn.functional as F
 from typing import Optional
 
 class SimpleCNN(nn.Module):
-    """
-    Simple CNN architecture for CIFAR-10 classification.
-    """
+    """simple cnn architecture."""
     def __init__(self, num_classes: int = 10, dropout_rate: float = 0.5):
         super(SimpleCNN, self).__init__()
         self.num_classes = num_classes
@@ -37,9 +35,7 @@ class SimpleCNN(nn.Module):
         return x
 
 class ImprovedCNN(nn.Module):
-    """
-    Improved CNN with residual connections and better architecture.
-    """
+    """improved cnn with residual connections."""
     def __init__(self, num_classes: int = 10, dropout_rate: float = 0.3):
         super(ImprovedCNN, self).__init__()
         self.num_classes = num_classes
@@ -57,7 +53,7 @@ class ImprovedCNN(nn.Module):
         self.dropout = nn.Dropout(dropout_rate)
         
     def _make_residual_block(self, in_channels: int, out_channels: int, stride: int = 1):
-        """Create a residual block."""
+        """create residual block."""
         return nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=stride, padding=1),
             nn.BatchNorm2d(out_channels),
@@ -81,17 +77,7 @@ class ImprovedCNN(nn.Module):
         return x
 
 def create_model(model_name: str, num_classes: int = 10, **kwargs) -> nn.Module:
-    """
-    Factory function to create models.
-    
-    Args:
-        model_name: Name of the model to create
-        num_classes: Number of output classes
-        **kwargs: Additional model parameters
-        
-    Returns:
-        PyTorch model
-    """
+    """factory function to create models."""
     if model_name == "simple_cnn":
         return SimpleCNN(num_classes=num_classes, **kwargs)
     elif model_name == "improved_cnn":

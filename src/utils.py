@@ -1,5 +1,5 @@
 """
-Utility functions for microvision.
+utility functions.
 """
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,16 +15,7 @@ import torch.nn as nn
 def plot_training_curves(train_losses: List[float], val_losses: List[float],
                         train_accs: List[float], val_accs: List[float],
                         save_path: Optional[str] = None):
-    """
-    Plot training curves for loss and accuracy.
-    
-    Args:
-        train_losses: Training losses per epoch
-        val_losses: Validation losses per epoch
-        train_accs: Training accuracies per epoch
-        val_accs: Validation accuracies per epoch
-        save_path: Optional path to save the plot
-    """
+    """plot training curves."""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
     
     # Loss plot
@@ -53,15 +44,7 @@ def plot_training_curves(train_losses: List[float], val_losses: List[float],
 
 def plot_confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray,
                          class_names: List[str], save_path: Optional[str] = None):
-    """
-    Plot confusion matrix.
-    
-    Args:
-        y_true: True labels
-        y_pred: Predicted labels
-        class_names: List of class names
-        save_path: Optional path to save the plot
-    """
+    """plot confusion matrix."""
     cm = confusion_matrix(y_true, y_pred)
     
     plt.figure(figsize=(10, 8))
@@ -77,16 +60,7 @@ def plot_confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray,
 
 def plot_sample_predictions(model: torch.nn.Module, test_loader, class_names: List[str],
                            num_samples: int = 16, device: str = 'cpu'):
-    """
-    Plot sample predictions with true and predicted labels.
-    
-    Args:
-        model: Trained model
-        test_loader: Test data loader
-        class_names: List of class names
-        num_samples: Number of samples to display
-        device: Device to run inference on
-    """
+    """plot sample predictions."""
     model.eval()
     model.to(device)
     
@@ -129,21 +103,13 @@ def plot_sample_predictions(model: torch.nn.Module, test_loader, class_names: Li
     plt.show()
 
 def calculate_model_size(model: torch.nn.Module) -> Tuple[int, float]:
-    """
-    Calculate model size in parameters and MB.
-    
-    Args:
-        model: PyTorch model
-        
-    Returns:
-        Tuple of (num_parameters, size_in_mb)
-    """
+    """calculate model size."""
     num_params = sum(p.numel() for p in model.parameters())
     size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
     return num_params, size_mb
 
 def set_seed(seed: int):
-    """set random seed for reproducibility."""
+    """set random seed."""
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
@@ -152,19 +118,19 @@ def set_seed(seed: int):
     torch.backends.cudnn.benchmark = False
 
 def save_experiment_results(results: Dict[str, Any], save_path: str):
-    """save experiment results to json file."""
+    """save experiment results."""
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     with open(save_path, 'w') as f:
         json.dump(results, f, indent=2)
 
 def load_experiment_results(load_path: str) -> Dict[str, Any]:
-    """load experiment results from json file."""
+    """load experiment results."""
     with open(load_path, 'r') as f:
         return json.load(f)
 
 def analyze_model_performance(y_true: np.ndarray, y_pred: np.ndarray, 
                             class_names: List[str]) -> Dict[str, Any]:
-    """analyze model performance with detailed metrics."""
+    """analyze model performance."""
     accuracy = np.mean(y_true == y_pred)
     report = classification_report(y_true, y_pred, target_names=class_names, output_dict=True)
     cm = confusion_matrix(y_true, y_pred)
@@ -183,7 +149,7 @@ def analyze_model_performance(y_true: np.ndarray, y_pred: np.ndarray,
 
 def create_experiment_summary(config, results: Dict[str, Any], 
                              model: nn.Module) -> Dict[str, Any]:
-    """create comprehensive experiment summary."""
+    """create experiment summary."""
     num_params, size_mb = calculate_model_size(model)
     
     summary = {

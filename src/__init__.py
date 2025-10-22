@@ -1,8 +1,5 @@
 """
 microvision: a minimal deep learning research lab for small-scale vision tasks.
-
-this package provides a clean, modular framework for computer vision experiments
-using pytorch, numpy, and minimal dependencies.
 """
 
 __version__ = "0.1.0"

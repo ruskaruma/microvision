@@ -1,5 +1,5 @@
 """
-dataset loading and preprocessing for microvision.
+dataset loading and preprocessing.
 """
 import torch
 from torch.utils.data import DataLoader
@@ -8,15 +8,7 @@ from typing import Tuple, Optional
 import os
 
 def get_cifar10_loaders(config) -> Tuple[DataLoader, DataLoader]:
-    """
-    Create CIFAR-10 data loaders with appropriate transforms.
-    
-    Args:
-        config: Configuration object containing data parameters
-        
-    Returns:
-        Tuple of (train_loader, test_loader)
-    """
+    """create cifar-10 data loaders."""
     # Define transforms
     train_transforms = transforms.Compose([
         transforms.RandomCrop(32, padding=4),
@@ -65,7 +57,7 @@ def get_cifar10_loaders(config) -> Tuple[DataLoader, DataLoader]:
     return train_loader, test_loader
 
 def get_cifar10_classes() -> list:
-    """Get CIFAR-10 class names."""
+    """get class names."""
     return [
         'airplane', 'automobile', 'bird', 'cat', 'deer',
         'dog', 'frog', 'horse', 'ship', 'truck'

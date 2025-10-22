@@ -1,5 +1,5 @@
 """
-training and evaluation system for microvision.
+training and evaluation system.
 """
 import torch
 import torch.nn as nn
@@ -13,9 +13,7 @@ import numpy as np
 from tqdm import tqdm
 
 class Trainer:
-    """
-    Training and evaluation class for microvision models.
-    """
+    """training and evaluation class."""
     def __init__(self, model: nn.Module, config, device: Optional[str] = None):
         self.model = model
         self.config = config
