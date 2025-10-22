@@ -5,8 +5,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from sklearn.metrics import confusion_matrix, classification_report
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, Dict, Any
 import seaborn as sns
+import json
+import os
+from datetime import datetime
+import torch.nn as nn
 
 def plot_training_curves(train_losses: List[float], val_losses: List[float],
                         train_accs: List[float], val_accs: List[float],
@@ -139,15 +143,64 @@ def calculate_model_size(model: torch.nn.Module) -> Tuple[int, float]:
     return num_params, size_mb
 
 def set_seed(seed: int):
-    """
-    Set random seed for reproducibility.
-    
-    Args:
-        seed: Random seed
-    """
+    """set random seed for reproducibility."""
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+
+def save_experiment_results(results: Dict[str, Any], save_path: str):
+    """save experiment results to json file."""
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    with open(save_path, 'w') as f:
+        json.dump(results, f, indent=2)
+
+def load_experiment_results(load_path: str) -> Dict[str, Any]:
+    """load experiment results from json file."""
+    with open(load_path, 'r') as f:
+        return json.load(f)
+
+def analyze_model_performance(y_true: np.ndarray, y_pred: np.ndarray, 
+                            class_names: List[str]) -> Dict[str, Any]:
+    """analyze model performance with detailed metrics."""
+    accuracy = np.mean(y_true == y_pred)
+    report = classification_report(y_true, y_pred, target_names=class_names, output_dict=True)
+    cm = confusion_matrix(y_true, y_pred)
+    precision = report['macro avg']['precision']
+    recall = report['macro avg']['recall']
+    f1_score = report['macro avg']['f1-score']
+    
+    return {
+        'accuracy': accuracy,
+        'precision': precision,
+        'recall': recall,
+        'f1_score': f1_score,
+        'classification_report': report,
+        'confusion_matrix': cm.tolist()
+    }
+
+def create_experiment_summary(config, results: Dict[str, Any], 
+                             model: nn.Module) -> Dict[str, Any]:
+    """create comprehensive experiment summary."""
+    num_params, size_mb = calculate_model_size(model)
+    
+    summary = {
+        'timestamp': datetime.now().isoformat(),
+        'config': {
+            'batch_size': config.batch_size,
+            'epochs': config.epochs,
+            'lr': config.lr,
+            'weight_decay': config.weight_decay,
+            'device': config.device
+        },
+        'model': {
+            'num_parameters': num_params,
+            'size_mb': size_mb,
+            'architecture': model.__class__.__name__
+        },
+        'results': results
+    }
+    
+    return summary
