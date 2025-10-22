@@ -1,5 +1,5 @@
 """
-Dataset loading and preprocessing for microvision.
+dataset loading and preprocessing for microvision.
 """
 import torch
 from torch.utils.data import DataLoader

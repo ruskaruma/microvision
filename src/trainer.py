@@ -1,5 +1,5 @@
 """
-Training and evaluation system for microvision.
+training and evaluation system for microvision.
 """
 import torch
 import torch.nn as nn

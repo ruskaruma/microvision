@@ -1,8 +1,8 @@
-# microvision Architecture
+# microvision architecture
 
-## 🏗️ Project Overview
+## project overview
 
-microvision is a minimal deep learning research lab designed for small-scale vision tasks. Built with PyTorch, NumPy, and managed with uv, it provides a clean, modular framework for computer vision experiments.
+microvision is a minimal deep learning research lab designed for small-scale vision tasks. built with pytorch, numpy, and managed with uv, it provides a clean, modular framework for computer vision experiments.
 
 ## 📊 System Architecture
 

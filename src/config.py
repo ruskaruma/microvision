@@ -1,5 +1,5 @@
 """
-Configuration management for microvision experiments.
+configuration management for microvision experiments.
 """
 from dataclasses import dataclass
 from typing import Optional
