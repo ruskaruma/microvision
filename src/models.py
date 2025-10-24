@@ -76,8 +76,13 @@ class ImprovedCNN(nn.Module):
         
         return x
 
-def create_model(model_name: str, num_classes: int = 10, **kwargs) -> nn.Module:
+def create_model(model_name: str, config=None, num_classes: int = 10, **kwargs) -> nn.Module:
     """factory function to create models."""
+    if config is not None:
+        num_classes = config.num_classes
+        dropout_rate = getattr(config, 'dropout_rate', 0.5)
+        kwargs['dropout_rate'] = dropout_rate
+    
     if model_name == "simple_cnn":
         return SimpleCNN(num_classes=num_classes, **kwargs)
     elif model_name == "improved_cnn":

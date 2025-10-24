@@ -8,30 +8,19 @@ import torch
 @dataclass
 class Config:
     """configuration class."""
-    # Data parameters
     batch_size: int = 128
     num_workers: int = 4
     data_root: str = "data"
-    
-    # Model parameters
     num_classes: int = 10
     input_size: int = 32
-    
-    # Training parameters
     epochs: int = 30
     lr: float = 1e-2
     weight_decay: float = 1e-4
     momentum: float = 0.9
-    
-    # System parameters
     seed: int = 42
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
-    
-    # Paths
     log_dir: str = "experiments/logs"
     ckpt_dir: str = "experiments/checkpoints"
-    
-    # Augmentation
     use_augmentation: bool = True
     
     def __post_init__(self):
