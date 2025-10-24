@@ -12,10 +12,15 @@ import os
 from datetime import datetime
 import torch.nn as nn
 
-def plot_training_curves(train_losses: List[float], val_losses: List[float],
-                        train_accs: List[float], val_accs: List[float],
-                        save_path: Optional[str] = None):
+def plot_training_curves(train_losses=None, val_losses=None, train_accs=None, val_accs=None, 
+                        history=None, save_path: Optional[str] = None):
     """plot training curves."""
+    if history is not None:
+        train_losses = history['train_loss']
+        val_losses = history['val_loss']
+        train_accs = history['train_acc']
+        val_accs = history['val_acc']
+    
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
     
     # Loss plot
@@ -108,6 +113,28 @@ def calculate_model_size(model: torch.nn.Module) -> Tuple[int, float]:
     size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
     return num_params, size_mb
 
+def plot_class_distribution(labels: List[int], class_names: List[str], save_path: Optional[str] = None):
+    """plot class distribution."""
+    unique, counts = np.unique(labels, return_counts=True)
+    
+    plt.figure(figsize=(10, 6))
+    bars = plt.bar(range(len(unique)), counts, color='skyblue', edgecolor='navy', alpha=0.7)
+    
+    plt.xlabel('class')
+    plt.ylabel('count')
+    plt.title('class distribution')
+    plt.xticks(range(len(unique)), [class_names[i] for i in unique], rotation=45)
+    
+    for i, (bar, count) in enumerate(zip(bars, counts)):
+        plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5, 
+                str(count), ha='center', va='bottom')
+    
+    plt.tight_layout()
+    
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    plt.show()
+
 def set_seed(seed: int):
     """set random seed."""
     torch.manual_seed(seed)
@@ -170,3 +197,26 @@ def create_experiment_summary(config, results: Dict[str, Any],
     }
     
     return summary
+
+def load_pretrained_model(model_name: str, config, model_id: Optional[str] = None):
+    """load a pre-trained model from registry."""
+    from .model_registry import registry
+    
+    if model_id is None:
+        model_id = registry.get_latest_model(model_name)
+    
+    model_info = registry.get_model_info(model_id)
+    model_config = model_info["config"]
+    
+    # create model with original config
+    from .models import create_model
+    # convert class name to model name for create_model
+    model_name_lower = model_name.lower().replace('cnn', '_cnn')
+    model = create_model(model_name_lower, config)
+    
+    # load trained weights
+    model_path = model_info["model_path"]
+    model.load_state_dict(torch.load(model_path, map_location='cpu'))
+    model.eval()
+    
+    return model, model_info["history"], model_info

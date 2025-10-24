@@ -182,12 +182,27 @@ class Trainer:
         # Close TensorBoard writer
         self.writer.close()
         
-        return {
-            'train_losses': self.train_losses,
-            'train_accuracies': self.train_accuracies,
-            'val_losses': self.val_losses,
-            'val_accuracies': self.val_accuracies
+        history = {
+            'train_loss': self.train_losses,
+            'train_acc': self.train_accuracies,
+            'val_loss': self.val_losses,
+            'val_acc': self.val_accuracies
         }
+        
+        # register model in registry
+        try:
+            from .model_registry import registry
+            model_id = registry.register_model(
+                model_name=self.model.__class__.__name__,
+                model=self.model,
+                config=vars(self.config),
+                history=history
+            )
+            print(f"model registered with id: {model_id}")
+        except ImportError:
+            pass  # registry not available
+        
+        return history
     
     def save_checkpoint(self, epoch: int, val_acc: float, is_best: bool = False):
         """
@@ -259,4 +274,8 @@ class Trainer:
         avg_loss = total_loss / len(test_loader)
         accuracy = 100. * correct / total
         
-        return avg_loss, accuracy, np.array(all_preds)
+        return {
+            'loss': avg_loss,
+            'accuracy': accuracy,
+            'predictions': np.array(all_preds)
+        }
