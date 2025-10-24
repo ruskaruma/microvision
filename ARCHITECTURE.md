@@ -75,7 +75,7 @@ classDiagram
 flowchart TD
     A[CIFAR-10 Dataset] --> B[Data Transforms]
     B --> C[Train Transforms]
-    B --> D[Test Transforms]
+    B --> D[Val/Test Transforms]
     
     C --> E[RandomCrop]
     C --> F[RandomHorizontalFlip]
@@ -85,15 +85,18 @@ flowchart TD
     D --> I[ToTensor]
     D --> J[Normalize]
     
-    E --> K[DataLoader]
+    E --> K[Train DataLoader]
     F --> K
     G --> K
     H --> K
-    I --> L[DataLoader]
+    I --> L[Val DataLoader]
     J --> L
+    I --> M[Test DataLoader]
+    J --> M
     
-    K --> M[Training Pipeline]
-    L --> N[Validation Pipeline]
+    K --> N[Training Pipeline]
+    L --> O[Validation Pipeline]
+    M --> P[Testing Pipeline]
 ```
 
 ### 3. Model Architecture (`models.py`)
@@ -260,12 +263,13 @@ graph TD
     B --> K[__init__.py]
     
     C --> L[01_data_exploration.ipynb]
-    C --> M[02_train_cnn.ipynb]
-    C --> N[03_analysis.ipynb]
+    C --> M[02_model_training.ipynb]
+    C --> N[03_model_analysis.ipynb]
     C --> O[04_experiments.ipynb]
     
     D --> P[logs/]
     D --> Q[checkpoints/]
+    D --> R[models/]
 ```
 
 ### Development Phases
@@ -286,14 +290,14 @@ gantt
     Evaluation          :done, p3b, after p3, 1d
     
     section Phase 4: Utilities
-    Visualization       :active, p4, after p3b, 1d
-    Metrics            :p4b, after p4, 1d
+    Visualization       :done, p4, after p3b, 1d
+    Model Registry      :done, p4b, after p4, 1d
     
     section Phase 5: Notebooks
-    Data Exploration   :p5a, after p4b, 1d
-    Training Notebook  :p5b, after p5a, 1d
-    Analysis Notebook  :p5c, after p5b, 1d
-    Experiments       :p5d, after p5c, 1d
+    Data Exploration   :done, p5a, after p4b, 1d
+    Training Notebook  :done, p5b, after p5a, 1d
+    Analysis Notebook  :done, p5c, after p5b, 1d
+    Experiments       :done, p5d, after p5c, 1d
 ```
 
 ## usage patterns
