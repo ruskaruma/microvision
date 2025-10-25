@@ -4,15 +4,14 @@ a comprehensive deep learning research lab for computer vision tasks. built with
 
 ## features
 
-- **12 advanced model architectures**: ResNet, VGG, EfficientNet, Vision Transformer, MobileNet, DenseNet, SqueezeNet
+- **4 advanced model architectures**: SimpleCNN, ImprovedCNN, ResNet18, EfficientNet-B0
 - **modular design**: models, datasets, trainers, model registry
 - **cifar-10 experiments** with data augmentation and validation splits
 - **pure pytorch training loops** with gpu acceleration
 - **config-driven reproducibility** with model checkpointing
 - **integrated tensorboard logging** and experiment tracking
-- **professional notebook workflow** with model sharing
-- **comprehensive analysis tools**: model comparison, performance benchmarking, interpretability
-- **advanced experiments**: hyperparameter optimization, ensemble methods, ablation studies
+- **professional notebook workflow** with comprehensive analysis
+- **advanced interpretability**: Grad-CAM, t-SNE visualization, model comparison
 
 ## getting started
 
@@ -88,3 +87,7 @@ microvision/
 - **comprehensive analysis**: model comparison, performance benchmarking, interpretability
 
 microvision provides a comprehensive, extensible framework for computer vision experiments with advanced models and analysis capabilities.
+
+## license
+
+this project is licensed under the mit license - see the [license](LICENSE) file for details.
