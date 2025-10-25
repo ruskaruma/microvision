@@ -10,7 +10,6 @@ a comprehensive deep learning research lab for computer vision tasks. built with
 - **pure pytorch training loops** with gpu acceleration
 - **config-driven reproducibility** with model checkpointing
 - **integrated tensorboard logging** and experiment tracking
-- **professional notebook workflow** with comprehensive analysis
 - **advanced interpretability**: Grad-CAM, t-SNE visualization, model comparison
 
 ## getting started
