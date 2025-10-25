@@ -2,7 +2,7 @@
 
 ## project overview
 
-microvision is a minimal deep learning research lab designed for small-scale vision tasks. built with pytorch, numpy, and managed with uv, it provides a clean, modular framework for computer vision experiments.
+microvision is a comprehensive deep learning research lab designed for computer vision tasks. built with pytorch, numpy, and managed with uv, it provides a clean, modular framework for computer vision experiments with state-of-the-art model architectures and advanced analysis capabilities.
 
 ## system architecture
 
@@ -23,8 +23,12 @@ graph TB
     H --> K[CIFAR-10 Dataset]
     I --> L[SimpleCNN]
     I --> M[ImprovedCNN]
-    J --> N[Visualization]
-    J --> O[Metrics]
+    I --> N[ResNet18]
+    I --> O[EfficientNet-B0]
+    J --> U[Visualization]
+    J --> V[Metrics]
+    J --> W[Grad-CAM]
+    J --> X[t-SNE Analysis]
 ```
 
 ### Module Dependencies
@@ -102,27 +106,21 @@ flowchart TD
 ### 3. Model Architecture (`models.py`)
 ```mermaid
 graph TB
-    A[Input: 3x32x32] --> B[Conv2d 3→32]
-    B --> C[BatchNorm2d]
-    C --> D[ReLU]
-    D --> E[MaxPool2d]
+    A[Input: 3x32x32] --> B[Model Selection]
+    B --> C[SimpleCNN]
+    B --> D[ImprovedCNN]
+    B --> E[ResNet18]
+    B --> F[EfficientNet-B0]
     
-    E --> F[Conv2d 32→64]
-    F --> G[BatchNorm2d]
-    G --> H[ReLU]
-    H --> I[MaxPool2d]
+    C --> G[Custom 3-Layer CNN]
+    D --> H[CNN with Residual Connections]
+    E --> I[ResNet with Pretrained Weights]
+    F --> J[EfficientNet with Pretrained Weights]
     
-    I --> J[Conv2d 64→128]
-    J --> K[BatchNorm2d]
-    K --> L[ReLU]
-    L --> M[MaxPool2d]
-    
-    M --> N[Flatten]
-    N --> O[Linear 2048→512]
-    O --> P[ReLU]
-    P --> Q[Dropout]
-    Q --> R[Linear 512→10]
-    R --> S[Output: 10 classes]
+    G --> K[Output: 10 classes]
+    H --> K
+    I --> K
+    J --> K
 ```
 
 ### 4. Training System (`trainer.py`)
@@ -358,32 +356,63 @@ flowchart TD
 - **Sample predictions**: Visual inspection of results
 - **Model architecture**: Network structure visualization
 
-## future extensions
+## advanced features
 
-### Planned Features
+### Model Analysis and Interpretability
 ```mermaid
-mindmap
-  root((microvision))
-    Advanced Models
-      ResNet18
-      VGG11
-      EfficientNet
-    Data Augmentation
-      Mixup
-      Cutout
-      AutoAugment
-    Optimization
-      Learning Rate Scheduling
-      Weight Decay
-      Gradient Clipping
-    Experiment Tracking
-      Weights & Biases
-      MLflow
-      Neptune
-    Visualization
-      t-SNE
-      Grad-CAM
-      Attention Maps
+graph TB
+    A[Trained Models] --> B[Performance Analysis]
+    A --> C[Model Comparison]
+    A --> D[Interpretability]
+    
+    B --> E[Accuracy Metrics]
+    B --> F[Parameter Count]
+    B --> G[Training Time]
+    B --> H[Efficiency Analysis]
+    
+    C --> I[Architecture Comparison]
+    C --> J[Performance Ranking]
+    C --> K[Feature Visualization]
+    
+    D --> L[Grad-CAM]
+    D --> M[t-SNE Analysis]
+    D --> N[Confusion Matrices]
+    D --> O[Sample Predictions]
 ```
 
-This architecture provides a solid foundation for computer vision research while maintaining simplicity and extensibility. The modular design allows for easy experimentation and rapid prototyping of new ideas.
+### Experiment Framework
+```mermaid
+graph TB
+    A[Experiment Design] --> B[Hyperparameter Optimization]
+    A --> C[Model Ensemble]
+    A --> D[Transfer Learning]
+    A --> E[Ablation Studies]
+    
+    B --> F[Grid Search]
+    B --> G[Random Search]
+    B --> H[Bayesian Optimization]
+    
+    C --> I[Majority Voting]
+    C --> J[Weighted Ensemble]
+    C --> K[Stacking]
+    
+    D --> L[Pretrained vs From-Scratch]
+    D --> M[Fine-tuning]
+    D --> N[Feature Extraction]
+    
+    E --> O[Component Analysis]
+    E --> P[Architecture Ablation]
+    E --> Q[Training Ablation]
+```
+
+## implemented features
+
+### Current Capabilities
+- **4 Model Architectures**: SimpleCNN, ImprovedCNN, ResNet18, EfficientNet-B0
+- **Comprehensive Analysis**: Model comparison, performance benchmarking, interpretability tools
+- **Advanced Experiments**: Hyperparameter optimization, ensemble methods, transfer learning, ablation studies
+- **Visualization Tools**: Training curves, confusion matrices, Grad-CAM, t-SNE analysis
+- **Model Registry**: Automatic model saving, loading, and metadata management
+- **Experiment Tracking**: TensorBoard integration, checkpointing, performance logging
+
+This architecture provides a comprehensive foundation for computer vision research with state-of-the-art models and advanced analysis capabilities. The modular design allows for easy experimentation and rapid prototyping of new ideas.
