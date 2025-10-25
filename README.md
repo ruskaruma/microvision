@@ -54,7 +54,6 @@ print(f"test accuracy: {test_results['accuracy']:.2f}%")
 1. **01_data_exploration.ipynb** - explore cifar-10 dataset and class distributions
 2. **02_model_training.ipynb** - train and compare 4 model architectures
 3. **03_model_analysis.ipynb** - comprehensive analysis of trained models with performance comparison, interpretability, and feature visualization
-4. **04_experiments.ipynb** - advanced experiments including hyperparameter optimization, ensemble methods, transfer learning, and ablation studies
 
 ## project structure
 
@@ -86,7 +85,6 @@ microvision/
 - **training pipeline**: gpu-accelerated training with validation
 - **visualization**: training curves, confusion matrices, sample predictions, grad-cam
 - **experiment tracking**: tensorboard integration and checkpointing
-- **advanced analysis**: model comparison, performance benchmarking, interpretability
-- **experiment framework**: hyperparameter optimization, ensemble methods, ablation studies
+- **comprehensive analysis**: model comparison, performance benchmarking, interpretability
 
 microvision provides a comprehensive, extensible framework for computer vision experiments with advanced models and analysis capabilities.
