@@ -78,8 +78,6 @@ class ImprovedCNN(nn.Module):
         
         return x
 
-# ============================================================================
-#advanced models
 
 class ResNet18(nn.Module):
     """ResNet-18 architecture with pretrained backbone."""
@@ -221,9 +219,6 @@ class SqueezeNet(nn.Module):
     def forward(self, x):
         return self.backbone(x)
 
-# ==========================================================================
-#model factory function
-
 def create_model(model_name: str, config=None, num_classes: int = 10, **kwargs) -> nn.Module:
     """factory function to create models."""
     if config is not None:
@@ -231,13 +226,11 @@ def create_model(model_name: str, config=None, num_classes: int = 10, **kwargs) 
         dropout_rate = getattr(config, 'dropout_rate', 0.5)
         kwargs['dropout_rate'] = dropout_rate
         
-    #simple models
     if model_name == "simple_cnn":
         return SimpleCNN(num_classes=num_classes, **kwargs)
     elif model_name == "improved_cnn":
         return ImprovedCNN(num_classes=num_classes, **kwargs)
     
-    #resnet models
     elif model_name == "resnet18":
         return ResNet18(num_classes=num_classes, **kwargs)
     elif model_name == "resnet34":
@@ -245,29 +238,23 @@ def create_model(model_name: str, config=None, num_classes: int = 10, **kwargs) 
     elif model_name == "resnet50":
         return ResNet50(num_classes=num_classes, **kwargs)
     
-    #vgg models
     elif model_name == "vgg11":
         return VGG11(num_classes=num_classes, **kwargs)
     elif model_name == "vgg16":
         return VGG16(num_classes=num_classes, **kwargs)
     
-    #efficientnet models
     elif model_name == "efficientnet_b0":
         return EfficientNetB0(num_classes=num_classes, **kwargs)
     
-    #mobilenet models
     elif model_name == "mobilenet_v2":
         return MobileNetV2(num_classes=num_classes, **kwargs)
     
-    #vision transformer
     elif model_name == "vit":
         return VisionTransformer(num_classes=num_classes, **kwargs)
     
-    #densenet models
     elif model_name == "densenet121":
         return DenseNet121(num_classes=num_classes, **kwargs)
     
-    #squeezenet
     elif model_name == "squeezenet":
         return SqueezeNet(num_classes=num_classes, **kwargs)
     
